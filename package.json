@@ -2,6 +2,11 @@
   "name": "diffiehellman-key-exchange",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": "please use yarn instead",
+    "yarn": ">=1.22.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
