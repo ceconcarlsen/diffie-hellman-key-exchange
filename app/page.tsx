@@ -11,17 +11,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Welcome from '@/components/welcome';
-import useGetTodos from '@/services/todos.service';
 import { UserButton, useUser } from '@clerk/nextjs';
-
-
 
 export default function Home() {
   const { setTheme } = useTheme();
   const { isLoaded, isSignedIn, user } = useUser();
-  const { data, isLoading } = useGetTodos();
-
-  if (isLoading) return <div>Loading...</div>;
 
   // In case the user signs out while on the page.
   if (!isLoaded || !isSignedIn) return null;
