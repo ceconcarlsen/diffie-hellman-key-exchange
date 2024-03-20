@@ -7,6 +7,7 @@ import { PropsWithChildren } from 'react';
 
 const queryClient = new QueryClient();
 
+
 const Providers = ({ children }: PropsWithChildren) => {
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
