@@ -1,5 +1,4 @@
 'use client';
-import { useQuery } from '@tanstack/react-query';
 
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
@@ -12,20 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Welcome from '@/components/welcome';
+import useGetTodos from '@/services/todos.service';
 import { UserButton, useUser } from '@clerk/nextjs';
 
-const useGetTodos = () => {
-  return useQuery({
-    queryKey: ['todos'],
-    queryFn: async () => {
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/todos'
-      );
 
-      return response.json();
-    },
-  });
-};
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -55,9 +44,6 @@ export default function Home() {
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setTheme('dark')}>
               Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme('system')}>
-              System
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
