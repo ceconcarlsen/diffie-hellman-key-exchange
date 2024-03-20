@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 
 const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
           attribute="class"
