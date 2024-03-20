@@ -10,6 +10,13 @@ const config = {
 	],
   prefix: "",
   theme: {
+    colors: {
+      'olive': '#585936',
+      'beige': '#F2E1C2',
+      'sandy-brown': '#D9C8B4',
+      'reddish-brown': '#592203',
+      'dark-brown': '#260401'
+    },
     container: {
       center: true,
       padding: "2rem",

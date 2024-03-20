@@ -1,11 +1,4 @@
 'use client';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useQuery } from '@tanstack/react-query';
 
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
@@ -18,6 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Welcome from '@/components/welcome';
+import { UserButton, useUser } from '@clerk/nextjs';
 
 const useGetTodos = () => {
   return useQuery({
@@ -34,52 +29,43 @@ const useGetTodos = () => {
 
 export default function Home() {
   const { setTheme } = useTheme();
-
+  const { isLoaded, isSignedIn, user } = useUser();
   const { data, isLoading } = useGetTodos();
 
   if (isLoading) return <div>Loading...</div>;
 
+  // In case the user signs out while on the page.
+  if (!isLoaded || !isSignedIn) return null;
+
   return (
-    <div className="my-4">
-      {/* <h1>Todos</h1> */}
-      {/* <ul>
-        {data.map((todo: Todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul> */}
-      <div className="my-4">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
+    <div className="h-screen">
+      <div className="m-8 flex flex-row gap-4 items-center">
+        <UserButton />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => setTheme('light')}>
+              Light
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme('dark')}>
+              Dark
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme('system')}>
+              System
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon">
-            <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setTheme('light')}>
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme('dark')}>
-            Dark
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme('system')}>
-            System
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      
+      <div className="m-12">
+        <div>Hello, {user.firstName} welcome to Leaf-It</div>
+      </div>
+      <Welcome />
     </div>
   );
 }
