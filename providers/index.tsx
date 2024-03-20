@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 const Providers = ({ children }: PropsWithChildren) => {
   return (
     <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      publishableKey="pk_test_aW1tb3J0YWwtc3BvbmdlLTIzLmNsZXJrLmFjY291bnRzLmRldiQ"
       appearance={{
         baseTheme: dark,
       }}
