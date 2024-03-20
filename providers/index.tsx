@@ -5,18 +5,11 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren } from 'react';
 
-import { dark } from '@clerk/themes';
-
 const queryClient = new QueryClient();
 
 const Providers = ({ children }: PropsWithChildren) => {
   return (
-    <ClerkProvider
-      publishableKey="pk_test_aW1tb3J0YWwtc3BvbmdlLTIzLmNsZXJrLmFjY291bnRzLmRldiQ"
-      appearance={{
-        baseTheme: dark,
-      }}
-    >
+    <ClerkProvider publishableKey="pk_test_aW1tb3J0YWwtc3BvbmdlLTIzLmNsZXJrLmFjY291bnRzLmRldiQ">
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
           attribute="class"
